@@ -13,7 +13,7 @@ function Server(opts){
   if (!(this instanceof Server)) return new Server(opts);
   EventEmitter.call(this);
 
-  debug('Create Sio Server');
+  return sio(opts);
 };
 
 // Inherits from `EventEmitter.`
