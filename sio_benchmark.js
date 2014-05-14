@@ -12,9 +12,7 @@ var Benchmark = require('./lib/benchmark.js');
 var benchmark = exports = module.exports = function(opts){
   // opts left for unit test
   var args = opts || argv;
-  var bm = new Benchmark(args);
-
-  return bm
+  return new Benchmark(args);
 };
 
 if(process.env.NODE_ENV !== 'test') {
