@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre2) + socket.io-redis",
   "main": "sio_benchmark.js",
+    "bin": {
+	"nb" : "./bin/nb"
+    },
   "scripts": {
     "test": "make test",
     "start": "NODE_ENV=test DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user"
