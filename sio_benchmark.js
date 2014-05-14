@@ -5,6 +5,5 @@
  */
 
 module.exports = function(opts){
-  console.log(opts);
   return require('./lib/benchmark.js')(opts);
 };
