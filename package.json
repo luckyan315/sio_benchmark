@@ -4,11 +4,17 @@
   "description": "A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre2) + socket.io-redis",
   "main": "sio_benchmark.js",
   "scripts": {
-    "test": "make test"
+    "test": "make test",
+    "start": "DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user"
   },
   "dependencies": {
     "socket.io-client": "~1.0.0-pre2",
-    "socket.io": "~1.0.0-pre2"
+    "socket.io": "~1.0.0-pre2",
+    "socket.io-redis" : "0.1.1",
+    "async" : "0.8.0",
+    "redis" : "0.10.1",
+    "debug" : "0.8.1",
+    "minimist" : "0.1.0"
   },
   "devDependencies" : {
   "mocha" : "1.16.2",
