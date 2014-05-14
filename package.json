@@ -5,7 +5,7 @@
   "main": "sio_benchmark.js",
   "scripts": {
     "test": "make test",
-    "start": "DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user"
+    "start": "NODE_ENV=test DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user"
   },
   "dependencies": {
     "socket.io-client": "~1.0.0-pre2",

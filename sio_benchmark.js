@@ -9,6 +9,14 @@ var debug = require('debug')('benchmark:sb');
 var Benchmark = require('./lib/benchmark.js');
 
 
-var benchmark = new Benchmark(argv);
+var benchmark = exports = module.exports = function(opts){
+  // opts left for unit test
+  var args = opts || argv;
+  var bm = new Benchmark(argv);
 
-benchmark.run();
+  return bm
+};
+
+if(process.env.NODE_ENV !== 'test') {
+  benchmark().run();  
+}
