@@ -13,5 +13,4 @@ process.on('SIGINT', function () {
   nb.stop(function(){
     process.exit(0);
   });
-
 });
