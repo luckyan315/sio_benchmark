@@ -2,13 +2,13 @@
   "name": "sio_benchmark",
   "version": "0.0.1",
   "description": "A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre2) + socket.io-redis",
-  "main": "sio_benchmark.js",
+  "main": "index.js",
     "bin": {
 	"nb" : "./bin/nb"
     },
   "scripts": {
     "test": "make test",
-    "start": "NODE_ENV=test DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user"
+    "start": "NODE_ENV=test DEBUG=* ./bin/nb -n 100 -c 10 http://localhost:3000/user"
   },
   "dependencies": {
     "socket.io-client": "~1.0.0-pre2",
@@ -25,7 +25,8 @@
   "supertest" : "0.8.2",
   "should" : "3.3.1",
   "json-mask" : "0.2.0",
-  "lodash" : "~2.4.1"
+  "lodash" : "~2.4.1",
+  "sinon" : "1.9.1"
   },  
   "repository": {
     "type": "git",

@@ -1,5 +1,16 @@
 #!/usr/bin/env node
 
 var argv = require('minimist')(process.argv.slice(2));
-var nb = require('../sio_benchmark.js')(argv);
+var nb = require('../')(argv);
+
+// start benchmarkding
 nb.run();
+
+// hook `Ctrl + C`
+process.on('SIGINT', function () {
+  console.log("\n Stoping workers elegantly...");
+
+  nb.stop(function(){
+    process.exit(0);
+  });
+});
