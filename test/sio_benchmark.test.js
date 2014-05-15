@@ -6,7 +6,7 @@ var debug = require('debug')('benchmark:test');
 var Server = require('./support/server.js');
 var parseArgs = require('minimist');
 
-var siobenchmark = require('../sio_benchmark.js');
+var siobenchmark = require('../');
 var port = 3000;
 
 // sio benchmark

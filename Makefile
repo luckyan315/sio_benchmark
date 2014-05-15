@@ -11,7 +11,7 @@ test:
 		--bail
 
 start:
-	@DEBUG=* node ./sio_benchmark.js -n 100 -c 10000 http://localhost:3000/user
+	@DEBUG=* ./bin/nb -n 100 -c 10000 http://localhost:3000/user
 
 coffee-test:
 	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
