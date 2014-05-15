@@ -3,7 +3,6 @@
 "use strict";
 
 var sio = require('socket.io');
-var EventEmitter = require('events').EventEmitter;
 var debug = require('debug')('benchmark:server');
 
 var server = exports = module.exports = Server;
@@ -15,11 +14,3 @@ function Server(opts){
 
   return sio(opts);
 };
-
-// Inherits from `EventEmitter.`
-Server.prototype.__proto__ = EventEmitter.prototype;
-
-// proto funcs
-(function(){
-
-}).call(Server.prototype);
