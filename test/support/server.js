@@ -10,7 +10,6 @@ var server = exports = module.exports = Server;
 // constructor
 function Server(opts){
   if (!(this instanceof Server)) return new Server(opts);
-  EventEmitter.call(this);
 
   return sio(opts);
 };
