@@ -4,14 +4,24 @@ var argv = require('minimist')(process.argv.slice(2));
 var nb = require('../')(argv);
 
 // start benchmarkding
-nb.run();  
+
 
 // hook `Ctrl + C`
 process.on('SIGINT', function () {
   console.log("\n Stoping workers elegantly...");
-
+  nb.run();  
   nb.stop(function(){
     process.exit(0);
   });
 
 });
+
+// sleep(2000);
+
+// // tests fun
+// function sleep(ms){
+//   var start = new Date().getTime();
+//   var end = start + ms;
+
+//   while(new Date().getTime() < end){null;}
+// };
