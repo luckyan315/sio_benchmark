@@ -6,6 +6,11 @@ var debug = require('debug')('benchmark:nb');
 // start benchmarkding
 nb.run();
 
+// create all ioc instances
+nb.on('all_connected', function(){
+  debug('all connected, ready to emit msg');
+});
+
 nb.on('exit', function(){
   debug('Quit node benchmark process!');
   process.exit(0);
