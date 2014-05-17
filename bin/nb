@@ -3,12 +3,12 @@
 var argv = require('minimist')(process.argv.slice(2));
 var nb = require('../')(argv);
 var debug = require('debug')('benchmark:nb');
-// start benchmarkding
-nb.run();
 
 // create all ioc instances
-nb.on('all_connected', function(){
-  debug('all connected, ready to emit msg');
+nb.on('all connected', function(){
+  debug('all connected, ready to emit!');
+
+  nb.broadcast('hi baywalk');
 });
 
 nb.on('exit', function(){
@@ -22,3 +22,6 @@ process.on('SIGINT', function () {
 
   nb.stop();
 });
+
+// start benchmarkding
+nb.run();
