@@ -13,7 +13,7 @@
   "dependencies": {
     "socket.io-client": "~1.0.0-pre2",
     "socket.io": "~1.0.0-pre2",
-    "socket.io-redis" : "0.1.1",
+    "socket.io-redis" : "0.1.2",
     "async" : "0.8.0",
     "redis" : "0.10.1",
     "debug" : "0.8.1",
