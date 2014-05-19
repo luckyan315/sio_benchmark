@@ -20,7 +20,7 @@ nb.run();
 
 function handleAllConnected(nClients){
   debug('all clients: '+ nClients +' connected, ready to emit!');
-
+  
   log(['\n\n', //seperate lines
        '########################################',
        '####                                ####',
@@ -29,8 +29,12 @@ function handleAllConnected(nClients){
        '####            v 0.0.1             ####',
        '####                                ####',
        '########################################',
+       'e.g.:Please Enter msg to broadcasting...',
+       '> hi all',
        '',
-       'e.g.: -n 10000 -c 10 --ioc 100',].join('\n'));
+       '########################################',
+       ''
+       ].join('\n'));
 
   // repl util for mastering benchmark tool
   process.stdin.setEncoding('utf8');
@@ -38,9 +42,15 @@ function handleAllConnected(nClients){
     var chunk = process.stdin.read();
     if (chunk !== null) {
 
-      var args = parseArgs(chunk.split(' '));
-      process.stdout.write('data: ' + JSON.stringify(args) + '\n');
+      // var args = [];
+      // try{
+      //   args = parseArgs(chunk.split(' '));        
+      // } catch(err){
+      //   process.stdout.write('format error : ' + err + '\n');
+      // }
 
+      // if(!args.n) return process.stdout.write('Just support -n param >.<!');
+      nb.broadcast(chunk);
     }
   });
 
