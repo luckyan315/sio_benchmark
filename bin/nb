@@ -1,14 +1,33 @@
 #!/usr/bin/env node
 
-var argv = require('minimist')(process.argv.slice(2));
+var parseArgs = require('minimist');
+var argv = parseArgs(process.argv.slice(2));
 var nb = require('../')(argv);
 var debug = require('debug')('benchmark:nb');
+var log = console.log;
 
 // create all ioc instances
-nb.on('all connected', function(){
-  debug('all connected, ready to emit!');
+nb.on('all connected', function(nClients){
+  debug('all clients: '+ nClients +' connected, ready to emit!');
 
-  // nb.broadcast('hi baywalk');
+  log(['########################################',
+       '####   socket.io benchmark tool     ####',
+       'e.g.: -n 10000 -c 10 --ioc 100',].join('\n'));
+
+  // repl util for mastering benchmark tool
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('readable', function(){
+    var chunk = process.stdin.read();
+    if (chunk !== null) {
+
+      var args = parseArgs(chunk.split(' '));
+      process.stdout.write('data: ' + JSON.stringify(args) + '\n');
+    }
+  });
+
+  process.stdin.on('end', function(){
+    process.stdout.write('end');
+  });
 });
 
 nb.on('exit', function(){
