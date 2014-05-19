@@ -21,8 +21,15 @@ nb.run();
 function handleAllConnected(nClients){
   debug('all clients: '+ nClients +' connected, ready to emit!');
 
-  log(['########################################',
+  log(['\n\n', //seperate lines
+       '########################################',
+       '####                                ####',
        '####   socket.io benchmark tool     ####',
+       '####                                ####',
+       '####            v 0.0.1             ####',
+       '####                                ####',
+       '########################################',
+       '',
        'e.g.: -n 10000 -c 10 --ioc 100',].join('\n'));
 
   // repl util for mastering benchmark tool
@@ -33,6 +40,7 @@ function handleAllConnected(nClients){
 
       var args = parseArgs(chunk.split(' '));
       process.stdout.write('data: ' + JSON.stringify(args) + '\n');
+
     }
   });
 
