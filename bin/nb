@@ -8,7 +8,7 @@ var debug = require('debug')('benchmark:nb');
 nb.on('all connected', function(){
   debug('all connected, ready to emit!');
 
-  nb.broadcast('hi baywalk');
+  // nb.broadcast('hi baywalk');
 });
 
 nb.on('exit', function(){

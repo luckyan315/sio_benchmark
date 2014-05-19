@@ -8,7 +8,7 @@
     },
   "scripts": {
     "test": "make test",
-    "start": "NODE_ENV=test DEBUG=benchmark:* ./bin/nb -n 10 -c 5 ws://localhost:3000"
+    "start": "NODE_ENV=test DEBUG=benchmark:* ./bin/nb -n 10000 -c 10 ws://localhost:3000"
   },
   "dependencies": {
     "socket.io-client": "~1.0.0-pre2",
