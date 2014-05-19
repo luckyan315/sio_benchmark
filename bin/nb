@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
+var log = console.log;
 var parseArgs = require('minimist');
 var argv = parseArgs(process.argv.slice(2));
+if(!isValidArgs(argv)) return help();
 var nb = require('../')(argv);
 var debug = require('debug')('benchmark:nb');
-var log = console.log;
+
 
 nb.on('all connected', handleAllConnected);
 nb.on('exit', handleExit);
@@ -68,4 +70,29 @@ function handleQuit() {
   debug("Stoping workers elegantly...");
 
   nb.stop();
+}
+
+function isValidArgs(args){
+  if(!args.n || !args.c || !args.ioc || !args._) return false;
+  return true;
+}
+
+function help(){
+  log([
+       '\x1b[1;33m' + 
+       'Usage:' + 
+       '\x1b[m',
+       '\x1b[0;32m' + 
+       '    -n     <number>   total request number to be sent',
+       '    -c     <number>   concurrency number, the same workers number',
+       '    --ioc  <number>   clients number in per worker',
+       '    [ws://]hostname[:port]/path' + 
+       '\x1b[m',
+       '',
+       '\x1b[1;33m' +        
+       'e.g:' + 
+       '\x1b[m',
+       '\x1b[0;32m' + 
+       '   DEBUG=benchmark:* ./bin/nb -n 1000 -c 10 --ioc 10 ws://localhost:3000' + 
+       '\x1b[m'].join('\n'));
 }
