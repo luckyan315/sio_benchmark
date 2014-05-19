@@ -29,7 +29,7 @@ function handleAllConnected(nClients){
        '####            v 0.0.1             ####',
        '####                                ####',
        '########################################',
-       'e.g.:Please Enter msg to broadcasting...',
+       'e.g.:Please input msg to broadcasting...',
        '> hi all',
        '',
        '########################################',
