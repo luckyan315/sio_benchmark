@@ -6,8 +6,19 @@ var nb = require('../')(argv);
 var debug = require('debug')('benchmark:nb');
 var log = console.log;
 
-// create all ioc instances
-nb.on('all connected', function(nClients){
+nb.on('all connected', handleAllConnected);
+nb.on('exit', handleExit);
+
+// hook `Ctrl + C`
+process.on('SIGINT', handleQuit);
+
+// start benchmarkding
+nb.run();
+
+
+// internal handle funcs
+
+function handleAllConnected(nClients){
   debug('all clients: '+ nClients +' connected, ready to emit!');
 
   log(['########################################',
@@ -28,19 +39,15 @@ nb.on('all connected', function(nClients){
   process.stdin.on('end', function(){
     process.stdout.write('end');
   });
-});
+}
 
-nb.on('exit', function(){
+function handleExit(){
   debug('Quit node benchmark process!');
   process.exit(0);
-});
+}
 
-// hook `Ctrl + C`
-process.on('SIGINT', function () {
+function handleQuit() {
   debug("Stoping workers elegantly...");
 
   nb.stop();
-});
-
-// start benchmarkding
-nb.run();
+}
