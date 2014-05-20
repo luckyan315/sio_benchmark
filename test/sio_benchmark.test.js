@@ -19,6 +19,17 @@ describe('sio benchmark ', function(){
     });
   });
 
+  xit('should emit requests according -n (requests) param', function(done){
+    var mockArgs = parseArgs('-n 20 -c 1 --ioc 1 http://localhost:3000/user'.split(' '));
+    var expReq = 20;
+    var nb = benchmark(mockArgs);
+    nb.on('complete', function(nClients){
+      expReq.should.eql(nb.connected);
+      done();
+    });
+    nb.run();
+  });
+
   it('should create workers instants by -c param', function(done){
     var mockArgs = parseArgs('-n 10 -c 2 --ioc 10 http://localhost:3000/user'.split(' '));
     var expWorkers = 2;
