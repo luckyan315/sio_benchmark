@@ -1,7 +1,7 @@
 Socket.io benchmarking tool
 =============
 
-A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre2) + socket.io-redis
+A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre4) + socket.io-redis
 
 ## Usage
 ```script
@@ -17,6 +17,6 @@ e.g:
 
 ## More
 
-If you have not socket.io server with pre2 version,
+If you have not socket.io server with pre4 version,
 U can checkout `git clone https://github.com/luckyan315/chat.git`,
 It's a simple chatting room impl with sio-pre2
