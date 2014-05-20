@@ -18,5 +18,5 @@ e.g:
 ## More
 
 If you have not socket.io server with pre4 version,
-U can checkout `git clone https://github.com/luckyan315/chat.git`,
-It's a simple chatting room impl with sio-pre2
+U can checkout `https://github.com/luckyan315/chat.git`,
+It's a simple chatting room impl with sio-pre4
