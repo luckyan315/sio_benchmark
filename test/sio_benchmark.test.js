@@ -19,7 +19,7 @@ describe('sio benchmark ', function(){
     });
   });
 
-  it.only('should emit requests according -n (requests) param', function(done){
+  it('should emit requests according -n (requests) param', function(done){
     var mockArgs = parseArgs('-n 20 -c 4 --ioc 1 http://localhost:3000/user'.split(' '));
     var expReq = 20;
     var nb = benchmark(mockArgs);
@@ -37,6 +37,7 @@ describe('sio benchmark ', function(){
     var nb = new benchmark(mockArgs);
     nb.on('all connected', function(nClients){
       expWorkers.should.eql(_.size(nb.cluster.workers));
+      nb.stop();
       done();
     })
     nb.run();
@@ -48,6 +49,7 @@ describe('sio benchmark ', function(){
     var nb = new benchmark(mockArgs);
     nb.on('all connected', function(nClients){
       expClients.should.eql(nClients);
+      nb.stop();
       done();
     });
     nb.run();
