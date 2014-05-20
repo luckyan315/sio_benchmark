@@ -21,7 +21,7 @@ nb.run();
 // internal handle funcs
 
 function handleAllConnected(nClients){
-  debug('all clients: '+ nClients +' connected, ready to emit!');
+  debug('all clients: %s connected, ready to emit!', nClients);
   
   log(['\n\n', //seperate lines
        '########################################',
