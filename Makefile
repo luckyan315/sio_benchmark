@@ -5,13 +5,10 @@ TESTS = $(shell find ./test/* -name "*.test.coffee")
 REPORTER = spec
 
 test:
-	@NODE_ENV=test DEBUG=socket.io-client:*,benchmark:*,socket.js ./node_modules/.bin/mocha \
+	@NODE_ENV=test DEBUG=benchmark:* ./node_modules/.bin/mocha \
 		--reporter $(REPORTER) \
 		--slow 200ms \
 		--bail
-
-start:
-	@DEBUG=* ./bin/nb -n 100 -c 10000 http://localhost:3000/user
 
 coffee-test:
 	@NODE_ENV=test ./node_modules/mocha/bin/mocha \
