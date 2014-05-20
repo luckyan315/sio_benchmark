@@ -19,12 +19,13 @@ describe('sio benchmark ', function(){
     });
   });
 
-  xit('should emit requests according -n (requests) param', function(done){
-    var mockArgs = parseArgs('-n 20 -c 1 --ioc 1 http://localhost:3000/user'.split(' '));
+  it.only('should emit requests according -n (requests) param', function(done){
+    var mockArgs = parseArgs('-n 20 -c 4 --ioc 1 http://localhost:3000/user'.split(' '));
     var expReq = 20;
     var nb = benchmark(mockArgs);
-    nb.on('complete', function(nClients){
-      expReq.should.eql(nb.connected);
+    nb.on('all complete', function(nReq){
+      expReq.should.eql(nReq);
+      nb.stop();      
       done();
     });
     nb.run();
@@ -33,7 +34,7 @@ describe('sio benchmark ', function(){
   it('should create workers instants by -c param', function(done){
     var mockArgs = parseArgs('-n 10 -c 2 --ioc 10 http://localhost:3000/user'.split(' '));
     var expWorkers = 2;
-    var nb = benchmark(mockArgs);
+    var nb = new benchmark(mockArgs);
     nb.on('all connected', function(nClients){
       expWorkers.should.eql(_.size(nb.cluster.workers));
       done();
@@ -44,12 +45,11 @@ describe('sio benchmark ', function(){
   it('should create ioc instants by --ioc param', function(done){
     var expClients = 10;
     var mockArgs = parseArgs('-n 10 -c 1 --ioc 10 http://localhost:3000/user'.split(' '));
-    var nb = benchmark(mockArgs);
+    var nb = new benchmark(mockArgs);
     nb.on('all connected', function(nClients){
       expClients.should.eql(nClients);
       done();
     });
     nb.run();
-
   });  
 });
