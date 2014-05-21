@@ -21,6 +21,19 @@ describe('sio benchmark ', function(){
     });
   });
 
+  it('should close all connection as run stop', function(done){    this.timeout(30000);
+    var mockArgs = parseArgs('-n 20 -c 1 --ioc 20 http://localhost:3000/user'.split(' '));
+    var nb = benchmark(mockArgs);
+    nb.on('all complete', function(nClients){
+      nb.stop();
+      setTimeout(function(){
+        nb.nConnected.should.eql(0);
+        done();
+      }, 500);
+    });
+    nb.run();    
+  });
+
   it('should occur error connect unknown port', function(done){
     var mockArgs = {
       _ : ['http://localhost:9898/user'],
