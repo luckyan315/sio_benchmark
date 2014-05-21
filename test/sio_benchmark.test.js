@@ -26,6 +26,7 @@ describe('sio benchmark ', function(){
     var nb = benchmark(mockArgs);
     nb.on('all complete', function(nClients){
       nb.stop();
+      // maybe it take 500ms ?
       setTimeout(function(){
         nb.nConnected.should.eql(0);
         done();
