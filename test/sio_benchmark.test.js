@@ -39,7 +39,7 @@ describe('sio benchmark ', function(){
     nb.run();
   });
 
-  xit('should emit requests according -n (requests) param', function(done){
+  it('should emit requests according -n (requests) param', function(done){
     var mockArgs = parseArgs('-n 5 -c 1 --ioc 1 http://localhost:3000/user'.split(' '));
     var expReq = 5;
     var nb = benchmark(mockArgs);
@@ -47,10 +47,6 @@ describe('sio benchmark ', function(){
       expReq.should.eql(nReq);
       nb.stop();      
       done();
-    });
-
-    nb.on('error', function(err){
-      debug('[error] %j', err);
     });
     nb.run();
   });
@@ -67,7 +63,7 @@ describe('sio benchmark ', function(){
     nb.run();
   });
 
-  xit('should create ioc instants by --ioc param', function(done){
+  it('should create ioc instants by --ioc param', function(done){
     var expClients = 10;
     var mockArgs = parseArgs('-n 10 -c 1 --ioc 10 http://localhost:3000/user'.split(' '));
     var nb = benchmark(mockArgs);
