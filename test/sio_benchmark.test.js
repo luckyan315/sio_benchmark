@@ -40,7 +40,7 @@ describe('sio benchmark ', function(){
       _ : ['http://localhost:9898/user'],
       n : 1,
       c : 1,
-      ioc: 1,
+      ioc: 1
     };
     var nb = benchmark(mockArgs);
 
