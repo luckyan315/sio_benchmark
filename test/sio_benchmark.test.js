@@ -79,10 +79,10 @@ describe('sio benchmark ', function(){
 
   it('should create ioc instants by --ioc param', function(done){
     var expClients = 10;
-    var mockArgs = parseArgs('-n 10 -c 1 --ioc 10 http://localhost:3000/user'.split(' '));
+    var mockArgs = parseArgs('-n 10 -c 1 --ioc 10 http://localhost:3000'.split(' '));
     var nb = benchmark(mockArgs);
     nb.on('all connected', function(nClients){
-      expClients.should.eql(nClients);
+      _.size(sio.of('/').connected).should.eql(nClients);
       nb.stop();
       done();
     });
