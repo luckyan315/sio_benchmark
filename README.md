@@ -9,7 +9,7 @@ Usage:
     -n     <number>   total request number to be sent
     -c     <number>   concurrency number, the same workers number
     --ioc  <number>   clients number in per worker
-    -t     <number>   interval time for emitting(ms)
+    -t     <number>   interval time for emitting in per worker(ms)
     [ws://]hostname[:port]/path
 
 e.g:
