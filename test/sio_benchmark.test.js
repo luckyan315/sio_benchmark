@@ -8,7 +8,6 @@ var parseArgs = require('minimist');
 var _ = require('lodash');
 var benchmark = require('../');
 
-
 //node socket.io benchmark(nb)
 describe('sio benchmark ', function(){
   var port = 3000;
@@ -95,7 +94,7 @@ describe('sio benchmark ', function(){
     nb.run();
   });  
 
-  it.only('ping-pong test', function(done){
+  xit('ping-pong test', function(done){
     var mockArgs = parseArgs('-n 1 -c 1 --ioc 1 ws://http://localhost:3000'.split(' '));
     var nb = benchmark(mockArgs);    
 

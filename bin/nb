@@ -7,7 +7,6 @@ if(!isValidArgs(argv)) return help();
 var nb = require('../')(argv);
 var debug = require('debug')('benchmark:nb');
 
-
 nb.on('all connected', handleAllConnected);
 nb.on('exit', handleExit);
 nb.on('error', function(err){
