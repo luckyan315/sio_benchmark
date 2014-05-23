@@ -19,6 +19,12 @@ describe('sio benchmark ', function(){
     sio.listen(port, function(){
       debug('sio server listening port on %d', port);
     });
+
+    sio.on('connection', function(socket){
+      socket.on('message', function(msg){
+        if(msg === 'ping') socket.send('pong');
+      });
+    });
   });
 
   it('should close all connection as run stop', function(done){    this.timeout(30000);
@@ -88,4 +94,21 @@ describe('sio benchmark ', function(){
     });
     nb.run();
   });  
+
+  it.only('ping-pong test', function(done){
+    var mockArgs = parseArgs('-n 1 -c 1 --ioc 1 ws://http://localhost:3000'.split(' '));
+    var nb = benchmark(mockArgs);    
+
+    nb.on('all connected', function(nClients){
+      // var begin = new Date().getTime();
+      nb.stop();
+      done();
+    });
+
+    nb.on('error', function(err){
+      debug('[error] %j', err);
+    });
+
+    nb.run();
+  });
 });

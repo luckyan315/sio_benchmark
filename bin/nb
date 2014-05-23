@@ -10,6 +10,9 @@ var debug = require('debug')('benchmark:nb');
 
 nb.on('all connected', handleAllConnected);
 nb.on('exit', handleExit);
+nb.on('error', function(err){
+  debug('********** %j', err);
+});
 
 // hook `Ctrl + C`
 process.on('SIGINT', handleQuit);
@@ -22,27 +25,33 @@ nb.run();
 
 function handleAllConnected(nClients){
   debug('all clients: %s connected, ready to emit!', nClients);
-  
-  log(['\n\n', //seperate lines
-       '########################################',
-       '####                                ####',
-       '####   socket.io benchmark tool     ####',
-       '####                                ####',
-       '####            v 0.0.1             ####',
-       '####                                ####',
-       '########################################',
-       'e.g.:Please input msg to broadcasting...',
-       '> hi all',
-       '',
-       '########################################',
-       ''
-       ].join('\n'));
 
-  // repl util for mastering benchmark tool
-  process.stdin.setEncoding('utf8');
-  process.stdin.on('readable', function(){
-    var chunk = process.stdin.read();
-    if (chunk !== null) {
+  this.emitping();
+
+  // disable temperary
+  // showtool();
+
+  function showtool(){
+    log(['\n\n', //seperate lines
+     '########################################',
+     '####                                ####',
+     '####   socket.io benchmark tool     ####',
+     '####                                ####',
+     '####            v 0.0.1             ####',
+     '####                                ####',
+     '########################################',
+     'e.g.:Please input msg to broadcasting...',
+     '> hi all',
+     '',
+     '########################################',
+     ''
+     ].join('\n'));
+
+    // repl util for mastering benchmark tool
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('readable', function(){
+      var chunk = process.stdin.read();
+      if (chunk !== null) {
 
       // var args = [];
       // try{
@@ -52,13 +61,27 @@ function handleAllConnected(nClients){
       // }
 
       // if(!args.n) return process.stdout.write('Just support -n param >.<!');
-      nb.broadcast(chunk);
+      switch(chunk){
+        case 'print':
+          nb.print();
+          break;
+
+        case 'broadcast':
+          nb.broadcast();
+          break;
+
+        default:
+          process.stdout.write('input command error!');
+
+      }
     }
   });
 
   process.stdin.on('end', function(){
     process.stdout.write('end');
   });
+  }
+
 }
 
 function handleExit(){
@@ -86,6 +109,7 @@ function help(){
        '    -n     <number>   total request number to be sent',
        '    -c     <number>   concurrency number, the same workers number',
        '    --ioc  <number>   clients number in per worker',
+       '    -t     <number>   Interval emit time (ms)',
        '    [ws://]hostname[:port]/path' + 
        '\x1b[m',
        '',
