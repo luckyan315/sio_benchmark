@@ -13,7 +13,7 @@ Usage:
     [ws://]hostname[:port]/path
 
 e.g:
-   DEBUG=benchmark:* ./bin/nb -n 1000 -c 10 --ioc 10 -t 2000 ws://localhost:3000
+   DEBUG=benchmark:* ./bin/nb -n 1000 -c 10 --ioc 10 -t 20000 ws://localhost:3000
 ```
 
 ## More
