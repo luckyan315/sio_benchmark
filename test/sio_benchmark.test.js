@@ -20,8 +20,8 @@ describe('sio benchmark ', function(){
     });
 
     sio.on('connection', function(socket){
-      socket.on('message', function(msg){
-        if(msg === 'ping') socket.send('pong');
+      socket.on('ping', function(data){
+        socket.emit('pong', data);
       });
     });
   });
@@ -94,13 +94,13 @@ describe('sio benchmark ', function(){
     nb.run();
   });  
 
-  xit('ping-pong test', function(done){
-    var mockArgs = parseArgs('-n 1 -c 1 --ioc 1 ws://http://localhost:3000'.split(' '));
+  it.only('ping-pong test', function(done){
+    var mockArgs = parseArgs('-n 1 -c 1 --ioc 1 -t 100 ws://localhost:3000'.split(' '));
     var nb = benchmark(mockArgs);    
 
     nb.on('all connected', function(nClients){
       // var begin = new Date().getTime();
-      nb.stop();
+            
       done();
     });
 
