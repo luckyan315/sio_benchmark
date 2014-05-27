@@ -94,7 +94,7 @@ describe('sio benchmark ', function(){
     nb.run();
   });  
 
-  it.only('ping-pong test', function(done){
+  it('ping-pong test', function(done){
     var mockArgs = parseArgs('-n 1 -c 1 --ioc 1 -t 100 ws://localhost:3000'.split(' '));
     var nb = benchmark(mockArgs);    
 
@@ -102,11 +102,12 @@ describe('sio benchmark ', function(){
       // var begin = new Date().getTime();
       nb.subEvent('pong');
       nb.on('sub', function(msg){
-        debug('[00000000args] %s', msg);
+        msg.name.should.eql('angl');
+        msg.age.should.eql(23);
         done();        
       });
 
-      nb.pubEvent('ping');
+      nb.pubEvent('ping', { name: 'angl', age: 23 });
     });
 
     nb.on('error', function(err){
