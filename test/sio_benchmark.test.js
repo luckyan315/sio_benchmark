@@ -100,11 +100,13 @@ describe('sio benchmark ', function(){
 
     nb.on('all connected', function(nClients){
       // var begin = new Date().getTime();
-      nb.subEvent('eventtest');
+      nb.subEvent('pong');
       nb.on('sub', function(msg){
         debug('[00000000args] %s', msg);
         done();        
       });
+
+      nb.pubEvent('ping');
     });
 
     nb.on('error', function(err){
