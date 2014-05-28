@@ -19,7 +19,20 @@ app.get('/', function(req, res, next){
   res.send('Welcome to dashboard \n');
 });
 
-app.get('/start', function(req, res, next){
+// export apis
+app.get('/start', handleStart);
+app.get('/stop', handleStop);
+
+app.listen(http_port, function(){
+  debug('Express server listening port on %d ...', http_port);
+});
+
+function packQuery(n, c, ioc, t, dest){
+  return parseArgs(sprintf('-n %s -c %s --ioc %s -t %s %s',
+   n, c, ioc, t, dest).split(' '));
+};
+
+function handleStart(req, res, next){
   var nRequests = req.query.n;
   var nConcurrency = req.query.c;
   var nClientsPerWorker = req.query.ioc;
@@ -27,14 +40,14 @@ app.get('/start', function(req, res, next){
   var dest = req.query.dest;
 
   if(!nRequests || !nConcurrency || !nClientsPerWorker || 
-    !nIntervalTime || !dest){
+     !nIntervalTime || !dest){
     res.writeHead(500);
     res.end('\x1b[1;31mPlease pass all params\x1b[m\n' + JSON.stringify(req.query));
     return;
   }
 
   var args = packQuery(nRequests, nConcurrency, 
-    nClientsPerWorker, nIntervalTime, dest);
+                       nClientsPerWorker, nIntervalTime, dest);
   debug('[args] %j', args);
 
   var nb = benchmark(args);
@@ -52,22 +65,15 @@ app.get('/start', function(req, res, next){
     res.end('\x1b[1;31mOccur Error: \x1b[m' + JSON.stringify(err));
   });
 
-  // start benchmarkding ...
+  // start benchmarking ...
   nb.run();
+};
 
-
-});
-
-
-app.listen(http_port, function(){
-  debug('Express server listening port on %d ...', http_port);
-});
-
-function packQuery(n, c, ioc, t, dest){
-  return parseArgs(sprintf('-n %s -c %s --ioc %s -t %s %s',
-   n, c, ioc, t, dest).split(' '));
+function handleStop(req, res, next){
+  
 };
 
 process.on('uncaughtException', function(err){
   debug('[uncaughtException]: ', err);
 });
+
