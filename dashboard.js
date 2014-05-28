@@ -49,7 +49,7 @@ app.get('/start', function(req, res, next){
   nb.on('error', function(err){
     debug('[error] %j', err);
     res.writeHead(500);
-    res.end('\x1b[1;31mOccur Error: \x1b[m' + err.toString());
+    res.end('\x1b[1;31mOccur Error: \x1b[m' + JSON.stringify(err));
   });
 
   // start benchmarkding ...
@@ -67,3 +67,7 @@ function packQuery(n, c, ioc, t, dest){
   return parseArgs(sprintf('-n %s -c %s --ioc %s -t %s %s',
    n, c, ioc, t, dest).split(' '));
 };
+
+process.on('uncaughtException', function(err){
+  debug('[uncaughtException]: ', err);
+});
