@@ -37,7 +37,18 @@ app.get('/start', function(req, res, next){
     nClientsPerWorker, nIntervalTime, dest);
   debug('[args] %j', args);
 
-  res.send('start!!!!\n');
+  var nb = benchmark(args);
+
+  nb.on('all connected', function(){
+    // start ping-pong benchmark
+    nb.emitping();
+  });
+
+  nb.on('error', function(err){
+    debug('[error] %j', err);
+  });
+
+  res.send(sprintf('\x1b[1;32mstart benchmark...\x1b[m ' + JSON.stringify(args)));
 });
 
 
