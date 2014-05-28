@@ -50,7 +50,7 @@ function handleStart(req, res, next){
                        nClientsPerWorker, nIntervalTime, dest);
   debug('[args] %j', args);
 
-  var nb = benchmark(args);
+  var nb = exports.nb = benchmark(args);
 
   nb.on('all connected', function(){
     debug('All clients: %d connected !', nConcurrency * nClientsPerWorker);
@@ -70,6 +70,12 @@ function handleStart(req, res, next){
 };
 
 function handleStop(req, res, next){
+  if(!exports.nb){
+    res.writeHead(500);
+    res.end('\x1b[1;31mShould Start benchmark 1st!, e.g.: curl localhost/start\x1b[m \n');
+    return;
+  }
+
   
 };
 
