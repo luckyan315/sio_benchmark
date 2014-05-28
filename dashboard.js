@@ -40,15 +40,22 @@ app.get('/start', function(req, res, next){
   var nb = benchmark(args);
 
   nb.on('all connected', function(){
+    debug('All clients: %d connected !', nConcurrency * nClientsPerWorker);
     // start ping-pong benchmark
     nb.emitping();
+    res.send(sprintf('\x1b[1;32mStart benchmark...\x1b[m ' + JSON.stringify(args)));    
   });
 
   nb.on('error', function(err){
     debug('[error] %j', err);
+    res.writeHead(500);
+    res.end('\x1b[1;31mOccur Error: \x1b[m' + err.toString());
   });
 
-  res.send(sprintf('\x1b[1;32mstart benchmark...\x1b[m ' + JSON.stringify(args)));
+  // start benchmarkding ...
+  nb.run();
+
+
 });
 
 
