@@ -65,18 +65,25 @@ function handleStart(req, res, next){
     res.end('\x1b[1;31mOccur Error: \x1b[m' + JSON.stringify(err));
   });
 
+  nb.on('exit', function(){
+    debug('Quit node benchmark process!');
+  });
+  
   // start benchmarking ...
   nb.run();
 };
 
 function handleStop(req, res, next){
-  if(!exports.nb){
+  var nb = exports.nb;
+  if(!nb){
     res.writeHead(500);
     res.end('\x1b[1;31mShould Start benchmark 1st!, e.g.: curl localhost/start\x1b[m \n');
     return;
   }
-
   
+  // stop all connections elegantly
+  nb.stop();
+  res.send('\x1b[1;32mStop all connections\x1b[m');
 };
 
 process.on('uncaughtException', function(err){
