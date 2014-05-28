@@ -17,12 +17,15 @@ app.get('/', function(req, res, next){
 });
 
 app.get('/start', function(req, res, next){
-  debug('[query] %j', req.query);
   var nRequests = req.query.n;
   var nConcurrency = req.query.c;
-  var nClientsPerWorker = req.query.ioc
-
-  debug('n %d, c %d, ioc %d', nRequests, nConcurrency, nClientsPerWorker);
+  var nClientsPerWorker = req.query.ioc;
+  var nIntervalTime = req.query.t;
+  if(!nRequests || !nConcurrency || !nClientsPerWorker || !nIntervalTime){
+    res.writeHead(500);
+    res.end('\x1b[1;31mPlease pass all params\x1b[m\n' + JSON.stringify(req.query));
+    return;
+  }
 
   res.send('start!!!!\n');
 });
