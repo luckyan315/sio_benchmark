@@ -11,6 +11,7 @@ nb.on('all connected', handleAllConnected);
 nb.on('exit', handleExit);
 nb.on('error', function(err){
   debug('********** %j', err);
+  process.exit(1);
 });
 
 // hook `Ctrl + C`
