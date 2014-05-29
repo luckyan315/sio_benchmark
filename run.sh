@@ -39,9 +39,6 @@ query="n=$n&c=$c&t=$t&ioc=$ioc"
 #hook quit 
 trap "quit" TERM QUIT INT EXIT
 
-# Start
-DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
-
 
 quit() {
   trap - TERM QUIT INT EXIT
@@ -60,12 +57,20 @@ start() {
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
     "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
-  echo -e "\x1b[1;32mcmd\x1b[m"
+  echo -e "\x1b[1;32m$cmd\x1b[m"
 }
 
 # close all connectioned clients in sio_benchmark clusters
-# stop() {
-# }
+stop() {
+  echo "stop $1 ..."
+}
+
+# Start
+# DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
+start slaver202
+stop slaver202
+
+
 
 # send ctrl cmd to slaver servers
 # curl $(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
