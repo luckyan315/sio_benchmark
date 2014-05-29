@@ -32,15 +32,15 @@ stop="/stop"
 query="n=$n&c=$c&t=$t&ioc=$ioc"
 
 #hook quit 
-trap "quit" TERM QUIT INT EXIT
+trap "quit" TERM QUIT INT
 
 
 quit() {
-  trap - TERM QUIT INT EXIT
+  trap - TERM QUIT INT
 
   echo "Stop slavers..."
   stop $slaver202
-  # stop $slaver204
+  stop $slaver204
 
   exit 0
 }
@@ -87,7 +87,7 @@ stop() {
 
 # start benchmarking
 
-DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
+DEBUG=benchmark:* nohup ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port &
 start $slaver202
 start $slaver204
 
