@@ -17,13 +17,13 @@ slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
 # dest addr 
-dest="192.168.20.203"
-
+dest="localhost"
+	
 # dashboard http listen port 
 dash_port=6666
 
 # sio_benchmark listening port 
-bench_port=9400
+bench_port=3000
 
 # action api
 start="/start"
@@ -40,8 +40,9 @@ quit() {
   trap - TERM QUIT INT
 
   echo "Stop slavers..."
-  stop $slaver202
-  stop $slaver204
+  stop $slaver_local
+  # stop $slaver202
+  # stop $slaver204
 
   exit 0
 }
@@ -54,13 +55,14 @@ start() {
     exit 1
   fi
 
-  let "bench_port += 1"
 
   # pack cmd
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
     "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
   curl $cmd
+
+  let "bench_port += 1"
 }
 
 # close all connectioned clients in sio_benchmark clusters
@@ -88,7 +90,7 @@ stop() {
 
 # start benchmarking
 start $slaver_local
-start $slaver202
-start $slaver204
+# start $slaver202
+# start $slaver204
 
 
