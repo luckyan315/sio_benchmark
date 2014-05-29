@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # slaver servers
+slaver_local="localhost"
 slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
@@ -25,5 +26,6 @@ stop() {
 }
 
 # stop remote sio_benchmark apps
+stop $slaver_local
 stop $slaver202
 stop $slaver204

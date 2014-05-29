@@ -12,6 +12,7 @@ ioc=10
 t=2000
 
 # slaver servers
+slaver_local="localhost"
 slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
@@ -22,7 +23,7 @@ dest="192.168.20.203"
 dash_port=6666
 
 # sio_benchmark listening port 
-bench_port=9401
+bench_port=9400
 
 # action api
 start="/start"
@@ -86,8 +87,7 @@ stop() {
 ########################################
 
 # start benchmarking
-
-DEBUG=benchmark:* nohup ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port &
+start $slaver_local
 start $slaver202
 start $slaver204
 
