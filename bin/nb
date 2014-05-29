@@ -27,61 +27,6 @@ function handleAllConnected(nClients){
   debug('all clients: %s connected, ready to emit!', nClients);
 
   this.emitping();
-
-  // disable temperary
-  // showtool();
-
-  function showtool(){
-    log(['\n\n', //seperate lines
-     '########################################',
-     '####                                ####',
-     '####   socket.io benchmark tool     ####',
-     '####                                ####',
-     '####            v 0.0.1             ####',
-     '####                                ####',
-     '########################################',
-     'e.g.:Please input msg to broadcasting...',
-     '> hi all',
-     '',
-     '########################################',
-     ''
-     ].join('\n'));
-
-    // repl util for mastering benchmark tool
-    process.stdin.setEncoding('utf8');
-    process.stdin.on('readable', function(){
-      var chunk = process.stdin.read();
-      if (chunk !== null) {
-
-      // var args = [];
-      // try{
-      //   args = parseArgs(chunk.split(' '));        
-      // } catch(err){
-      //   process.stdout.write('format error : ' + err + '\n');
-      // }
-
-      // if(!args.n) return process.stdout.write('Just support -n param >.<!');
-      switch(chunk){
-        case 'print':
-          nb.print();
-          break;
-
-        case 'broadcast':
-          nb.broadcast();
-          break;
-
-        default:
-          process.stdout.write('input command error!');
-
-      }
-    }
-  });
-
-  process.stdin.on('end', function(){
-    process.stdout.write('end');
-  });
-  }
-
 }
 
 function handleExit(){
