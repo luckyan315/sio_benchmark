@@ -43,7 +43,10 @@ trap "quit" TERM QUIT INT EXIT
 quit() {
   trap - TERM QUIT INT EXIT
 
-  echo "hook quit"
+  echo "Stop slavers..."
+  stop slaver202
+  stop slaver204
+
   exit 0
 }
 
@@ -57,7 +60,7 @@ start() {
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
     "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
-  echo -e "\x1b[1;32m$cmd\x1b[m"
+  echo -e "\x1b[1;32mStart benchmarkding\x1b[m : $cmd"
 }
 
 # close all connectioned clients in sio_benchmark clusters
@@ -68,8 +71,7 @@ stop() {
 # Start
 # DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
 start $slaver202
-stop $slaver202
-
+start $slaver204
 
 
 # send ctrl cmd to slaver servers
