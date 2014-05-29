@@ -1,28 +1,21 @@
 #!/bin/bash
 
 # Usage:
-#     -n     <number>   total request number to be sent
-#     -c     <number>   concurrency number, the same workers number
-#     --ioc  <number>   clients number in per worker
-#     -t     <number>   interval time for emitting(ms) in per worker
-#     [ws://]hostname[:port]/path
 
-# e.g:
-#    DEBUG=benchmark:* ./bin/nb -n 1000 -c 10 --ioc 10 -t 2000 ws://localhost:3000
-
-# config request
+# total request number to be sent
 n=1
+# concurrency number, the same workers number
 c=10
+# clients number in per worker
 ioc=10
+# interval time for emitting(ms) in per worker
 t=2000
 
-# dest addr
-dest="localhost"
+# dest addr e.g.: [ws://]hostname[:port]/path
+dest="192.168.20.203"
 
 # slaver servers
-# slaver202="192.168.20.202"
-slaver202="localhost"
-
+slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
 # dashboard http listen port 
@@ -82,16 +75,18 @@ stop() {
 
 }
 
-# Start
-# DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
+########################################
+####                                ####
+####   socket.io benchmark tool     ####
+####                                ####
+####            v 0.1.0             ####
+####                                ####
+########################################
+
+# start benchmarking
+
+DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
 start $slaver202
-# start $slaver204
-
-
-# send ctrl cmd to slaver servers
-# curl $(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
-#   "$slaver202" "$dash_port" "$start" "$query" "$dest" "$bench_port")
-# curl $(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
-#   "$slaver204" "$dash_port" "$start" "$query" "$dest" "$bench_port")
+start $slaver204
 
 
