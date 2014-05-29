@@ -17,7 +17,7 @@ ioc=10
 t=2000
 
 # dest addr
-dest="192.168.20.203"
+dest="localhost"
 
 # slaver servers
 slaver202="192.168.20.202"
@@ -36,7 +36,22 @@ stop="/stop"
 # query
 query="n=$n&c=$c&t=$t&ioc=$ioc"
 
-start(){
+#hook quit 
+trap "quit" TERM QUIT INT EXIT
+
+# Start
+DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
+
+
+quit() {
+  trap - TERM QUIT INT EXIT
+
+  echo "hook quit"
+  exit 0
+}
+
+# start slaver sio_benchmark app
+start() {
   slaver=$1
   if [ -z $slaver ]; then
     echo "Please pass dest slaver name! e.g.: start 192.168.20.203:3000"
@@ -46,8 +61,11 @@ start(){
     "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
   echo -e "\x1b[1;32mcmd\x1b[m"
-
 }
+
+# close all connectioned clients in sio_benchmark clusters
+# stop() {
+# }
 
 # send ctrl cmd to slaver servers
 # curl $(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
@@ -55,4 +73,4 @@ start(){
 # curl $(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
 #   "$slaver204" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
-DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
+
