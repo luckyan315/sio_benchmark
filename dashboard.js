@@ -83,7 +83,7 @@ function handleStop(req, res, next){
   
   // stop all connections elegantly
   nb.stop();
-  res.send('\x1b[1;32mStop all connections\x1b[m');
+  res.send('\x1b[1;32mStop all connections\x1b[m\n');
 };
 
 process.on('uncaughtException', function(err){
