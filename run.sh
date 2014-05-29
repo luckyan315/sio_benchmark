@@ -67,8 +67,8 @@ stop() {
 
 # Start
 # DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
-start slaver202
-stop slaver202
+start $slaver202
+stop $slaver202
 
 
 
