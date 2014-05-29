@@ -1,7 +1,7 @@
 {
   "name": "sio_benchmark",
   "version": "0.1.0",
-  "description": "A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(pre2) + socket.io-redis",
+  "description": "A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(1.0.2) + socket.io-redis",
   "main": "index.js",
     "bin": {
 	"nb" : "./bin/nb"
@@ -11,8 +11,8 @@
     "start": "DEBUG=benchmark:* ./bin/nb -n 100 -c 10 --ioc 1 ws://benchmark.yg.chat.baidao.com"
   },
   "dependencies": {
-    "socket.io-client": "1.0.0-pre4",
-    "socket.io": "1.0.0-pre4",
+    "socket.io-client": "1.0.2",
+    "socket.io": "1.0.2",
     "socket.io-redis" : "0.1.2",
     "async" : "0.8.0",
     "redis" : "0.10.1",
@@ -39,7 +39,7 @@
     "socket.io",
     "benchmark",
     "stress",
-    "pre2"
+    "websocket"
   ],
   "author": "luckyan315",
   "license": "BSD-2-Clause",
