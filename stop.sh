@@ -24,7 +24,6 @@ stop() {
   curl $cmd
 }
 
-
 # stop remote sio_benchmark apps
 stop $slaver202
 stop $slaver204

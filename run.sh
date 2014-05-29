@@ -11,18 +11,18 @@ ioc=10
 # interval time for emitting(ms) in per worker
 t=2000
 
-# dest addr e.g.: [ws://]hostname[:port]/path
-dest="192.168.20.203"
-
 # slaver servers
 slaver202="192.168.20.202"
 slaver204="192.168.20.204"
+
+# dest addr 
+dest="192.168.20.203"
 
 # dashboard http listen port 
 dash_port=6666
 
 # sio_benchmark listening port 
-bench_port=3000
+bench_port=9401
 
 # action api
 start="/start"
@@ -52,6 +52,8 @@ start() {
     echo "Please pass dest slaver name! e.g.: start 192.168.20.203:3000"
     exit 1
   fi
+
+  let "bench_port += 1"
 
   # pack cmd
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
