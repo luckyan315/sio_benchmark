@@ -20,7 +20,9 @@ t=2000
 dest="localhost"
 
 # slaver servers
-slaver202="192.168.20.202"
+# slaver202="192.168.20.202"
+slaver202="localhost"
+
 slaver204="192.168.20.204"
 
 # dashboard http listen port 
@@ -44,8 +46,8 @@ quit() {
   trap - TERM QUIT INT EXIT
 
   echo "Stop slavers..."
-  stop slaver202
-  stop slaver204
+  stop $slaver202
+  # stop $slaver204
 
   exit 0
 }
@@ -57,21 +59,33 @@ start() {
     echo "Please pass dest slaver name! e.g.: start 192.168.20.203:3000"
     exit 1
   fi
+
+  # pack cmd
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
     "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
 
-  echo -e "\x1b[1;32mStart benchmarkding\x1b[m : $cmd"
+  curl $cmd
 }
 
 # close all connectioned clients in sio_benchmark clusters
 stop() {
   echo "stop $1 ..."
+  slaver=$1
+  if [ -z $slaver ]; then
+    echo "Please pass slaver name! e.g.: stop 192.168.20.203:3000"
+    exit 1
+  fi
+
+  # pack cmd
+  cmd=$(printf "http://%s:%s%s" "$slaver" "$dash_port" "$stop")
+  curl $cmd
+
 }
 
 # Start
 # DEBUG=benchmark:* ./bin/nb -n $n -c $c --ioc $ioc -t $t ws://$dest:$bench_port
 start $slaver202
-start $slaver204
+# start $slaver204
 
 
 # send ctrl cmd to slaver servers
