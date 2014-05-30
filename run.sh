@@ -13,6 +13,7 @@ t=2000
 
 # slaver servers
 slaver_local="localhost"
+slaver205="192.168.20.205"
 slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
@@ -86,7 +87,7 @@ stop() {
 ########################################
 
 # start benchmarking
-start $slaver_local $bench_port &
+start $slaver205 $bench_port &
 start $slaver202 $((bench_port + 1)) &
 start $slaver204 $((bench_port + 2)) &
 
