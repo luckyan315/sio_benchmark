@@ -87,8 +87,8 @@ stop() {
 ########################################
 
 # start benchmarking
-start $slaver_local
-start $slaver202
-start $slaver204
+start $slaver_local &
+start $slaver202 &
+start $slaver204 &
 
 

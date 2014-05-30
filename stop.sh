@@ -26,6 +26,6 @@ stop() {
 }
 
 # stop remote sio_benchmark apps
-stop $slaver_local
-stop $slaver202
-stop $slaver204
+stop $slaver_local &
+stop $slaver202 &
+stop $slaver204 &
