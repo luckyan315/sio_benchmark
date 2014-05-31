@@ -2,7 +2,6 @@
 
 # slaver servers
 slaver_local="localhost"
-
 # slaver202="192.168.20.202"
 # slaver204="192.168.20.204"
 
@@ -30,3 +29,4 @@ stop() {
 stop $slaver_local
 # stop $slaver202
 # stop $slaver204
+
