@@ -2,9 +2,6 @@
 
 # slaver servers
 slaver_local="localhost"
-slaver202="192.168.20.202"
-slaver204="192.168.20.204"
-slaver205="192.168.20.205"
 
 # dashboard http listen port 
 dash_port=6666
@@ -27,6 +24,4 @@ stop() {
 }
 
 # stop remote sio_benchmark apps
-stop $slaver205 &
-stop $slaver202 &
-stop $slaver204 &
+stop $slaver_local &
