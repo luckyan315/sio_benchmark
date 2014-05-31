@@ -91,7 +91,7 @@ stop() {
 ########################################
 
 # start benchmarking
-start $slaver_local
+start $slaver_local $bench_port
 # start $slaver202
 # start $slaver204
 
