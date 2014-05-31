@@ -21,7 +21,7 @@ dest="localhost"
 dash_port=6666
 
 # sio_benchmark listening port 
-bench_port=9401
+bench_port=3000
 
 # action api
 start="/start"
