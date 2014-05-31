@@ -13,6 +13,7 @@ t=2000
 
 # slaver servers
 slaver_local="localhost"
+slaver205="192.168.20.205"
 slaver202="192.168.20.202"
 slaver204="192.168.20.204"
 
@@ -23,6 +24,7 @@ dest="localhost"
 dash_port=6666
 
 # sio_benchmark listening port 
+
 bench_port=3000
 
 # action api
@@ -50,15 +52,15 @@ quit() {
 # start slaver sio_benchmark app
 start() {
   slaver=$1
-  if [ -z $slaver ]; then
-    echo "Please pass dest slaver name! e.g.: start 192.168.20.203:3000"
+  dest_port=$2
+  if [ -z $slaver ] || [ -z $dest_port ]; then
+    echo "Please pass dest slaver uri and port ! e.g.: start 192.168.20.203 3000"
     exit 1
   fi
 
-
   # pack cmd
   cmd=$(printf "http://%s:%s%s?%s&dest=ws://%s:%s" \
-    "$slaver" "$dash_port" "$start" "$query" "$dest" "$bench_port")
+    "$slaver" "$dash_port" "$start" "$query" "$dest" "$dest_port")
 
   curl $cmd
 
@@ -89,8 +91,8 @@ stop() {
 ########################################
 
 # start benchmarking
+
 start $slaver_local
 # start $slaver202
 # start $slaver204
-
 
