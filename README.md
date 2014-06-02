@@ -1,7 +1,7 @@
 Socket.io benchmarking tool
 =============
 
-A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(1.0.2) + socket.io-redis
+A benchmark tool aimed at stress testing scale nodes which consist by node.js + socket.io(latest) + socket.io-redis
 
 ## Usage
 ```script
