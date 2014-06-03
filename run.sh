@@ -5,11 +5,11 @@
 # total request number to be sent
 n=1
 # concurrency number, the same workers number
-c=10
+c=1
 # clients number in per worker
-ioc=10
+ioc=2000
 # interval time for emitting(ms) in per worker
-t=2000
+t=10000
 
 # slaver servers
 slaver_local="localhost"
@@ -87,8 +87,11 @@ stop() {
 ########################################
 
 # start benchmarking
-start $slaver205 $bench_port &
-start $slaver202 $((bench_port + 1)) &
-start $slaver204 $((bench_port + 2)) &
+
+# DEBUG=benchmark:* ./bin/nb -n 1 -c 10 --ioc 10 -t 2000 ws://192.168.20.203:9401
+
+start $slaver_local $bench_port &
+# start $slaver202 $((bench_port + 1)) &
+# start $slaver204 $((bench_port + 2)) &
 
 
